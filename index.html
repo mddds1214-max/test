@@ -3,384 +3,904 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated: 2026-03-17 12:18 -->
-    <title>Premium Lotto - 행운의 번호 추천</title>
-    <meta name="description" content="매일매일 당신의 행운을 점쳐보세요. 프리미엄 로또 번호 생성기.">
+    <title>로또 번호 추천 | LuckyLotto - 행운의 번호 생성기 & 로또 전략 가이드</title>
+    <meta name="description" content="무료 로또 번호 생성기와 당첨 전략, 번호 분석 가이드를 제공합니다. 과학적 확률 분석으로 스마트한 로또를 즐겨보세요.">
+    <meta name="keywords" content="로또 번호 추천, 로또 생성기, 로또 당첨 전략, 번호 분석, 행운의 번호">
+    <meta name="author" content="LuckyLotto">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://premium-lotto-generator-7q8.pages.dev/">
+    <meta property="og:title" content="LuckyLotto - 행운의 로또 번호 추천 & 전략 가이드">
+    <meta property="og:description" content="무료 로또 번호 생성기와 당첨 전략, 번호 분석 가이드를 제공합니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://premium-lotto-generator-7q8.pages.dev/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1104684007782325"
          crossorigin="anonymous"></script>
     <style>
         :root {
-            --primary-glow: conic-gradient(
-                from 180deg at 50% 50%,
-                #16abff33 0deg,
-                #0885ff33 55deg,
-                #54d6ff33 120deg,
-                #0071ff33 160deg,
-                transparent 360deg
-            );
-            --secondary-glow: radial-gradient(
-                rgba(255, 255, 255, 1),
-                rgba(255, 255, 255, 0)
-            );
-            --tile-start-rgb: 239, 245, 249;
-            --tile-end-rgb: 228, 232, 233;
-            --tile-border: conic-gradient(
-                #00000080,
-                #00000040,
-                #00000030,
-                #00000020,
-                #00000010,
-                #00000010,
-                #00000080
-            );
-
-            --foreground-rgb: 255, 255, 255;
-            --background-start-rgb: 10, 10, 20;
-            --background-end-rgb: 0, 0, 0;
-            
-            --ball-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            --bg-primary: #0a0a14;
+            --bg-secondary: #12121f;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #222240;
+            --text-primary: #f0f0f5;
+            --text-secondary: rgba(240, 240, 245, 0.65);
+            --text-muted: rgba(240, 240, 245, 0.4);
+            --accent: #54d6ff;
+            --accent-glow: rgba(84, 214, 255, 0.15);
+            --accent-2: #7c6aff;
+            --border: rgba(255, 255, 255, 0.08);
+            --gradient-main: linear-gradient(135deg, #54d6ff, #7c6aff);
+            --shadow-soft: 0 4px 24px rgba(0,0,0,0.3);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --max-width: 900px;
         }
 
-        * {
-            box-sizing: border-box;
-            padding: 0;
-            margin: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            color: rgb(var(--foreground-rgb));
-            background: linear-gradient(
-                to bottom,
-                transparent,
-                rgb(var(--background-end-rgb))
-            ) rgb(var(--background-start-rgb));
-            font-family: 'Outfit', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding-top: 2rem;
+            font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Ambient background effects */
-        body::before,
-        body::after {
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .nav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.25s;
+            cursor: pointer;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        .nav-toggle { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ===== MAIN LAYOUT ===== */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section { padding: 3rem 0; }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+
+        .hero::before {
             content: '';
             position: absolute;
-            z-index: -1;
-            opacity: 0.4;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+            top: -100px; left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
         }
 
-        body::before {
-            background: var(--primary-glow);
-            border-radius: 50%;
-            width: 50vw;
-            height: 50vw;
-            top: -10%;
-            left: -10%;
-            filter: blur(90px);
-            animation: pulse 15s infinite alternate;
-        }
-
-        body::after {
-            background: var(--secondary-glow);
-            border-radius: 50%;
-            width: 30vw;
-            height: 30vw;
-            bottom: -5%;
-            right: -5%;
-            filter: blur(70px);
-            animation: pulse 10s infinite alternate-reverse;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.2) translate(10%, 10%); }
-        }
-
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3rem;
-            z-index: 1;
-            padding: 2rem;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .header {
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 3.5rem;
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(to right, #fff, #54d6ff);
+            background: var(--gradient-main);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             letter-spacing: -1px;
         }
 
-        p {
-            color: rgba(255, 255, 255, 0.6);
+        .hero p {
+            color: var(--text-secondary);
             font-size: 1.1rem;
-            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        /* ===== GENERATOR ===== */
+        .generator-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generator-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gradient-main);
         }
 
         .lotto-container {
             display: flex;
             gap: 12px;
-            perspective: 1000px;
-            min-height: 100px;
             justify-content: center;
             flex-wrap: wrap;
+            min-height: 80px;
+            margin: 1.5rem 0;
         }
 
         .ball {
-            width: 65px;
-            height: 65px;
+            width: 60px; height: 60px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #fff;
-            box-shadow: var(--ball-shadow);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             transform: scale(0) rotateY(180deg);
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            overflow: hidden;
         }
-
-        .ball.active {
-            transform: scale(1) rotateY(0deg);
-        }
-
+        .ball.active { transform: scale(1) rotateY(0deg); }
         .ball::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%);
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 50%);
         }
 
-        /* Color classes for balls */
-        .color-1 { background: linear-gradient(135deg, #fbc531, #e1b12c); border-color: #fbc531; color: #000; }
-        .color-2 { background: linear-gradient(135deg, #487eb0, #40739e); border-color: #487eb0; }
-        .color-3 { background: linear-gradient(135deg, #e84118, #c23616); border-color: #e84118; }
-        .color-4 { background: linear-gradient(135deg, #7f8c8d, #718093); border-color: #7f8c8d; }
-        .color-5 { background: linear-gradient(135deg, #44bd32, #4cd137); border-color: #44bd32; }
+        .color-1 { background: linear-gradient(135deg, #fbc531, #e1b12c); color: #000; }
+        .color-2 { background: linear-gradient(135deg, #487eb0, #40739e); }
+        .color-3 { background: linear-gradient(135deg, #e84118, #c23616); }
+        .color-4 { background: linear-gradient(135deg, #7f8c8d, #718093); }
+        .color-5 { background: linear-gradient(135deg, #44bd32, #4cd137); }
 
         .generate-btn {
-            padding: 18px 48px;
-            font-size: 1.25rem;
+            display: block;
+            margin: 0 auto;
+            padding: 14px 40px;
+            font-size: 1.1rem;
             font-weight: 600;
-            background: #fff;
-            color: #000;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--gradient-main);
+            color: #fff;
             border: none;
             border-radius: 100px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(84, 214, 255, 0.2);
         }
-
         .generate-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
-            background: #54d6ff;
-            color: #fff;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(84, 214, 255, 0.35);
         }
+        .generate-btn:active { transform: translateY(-1px) scale(0.98); }
 
-        .generate-btn:active {
-            transform: translateY(-2px) scale(0.98);
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .ball { width: 50px; height: 50px; font-size: 1.2rem; }
-            .lotto-container { gap: 8px; }
-        }
-
-        /* Ad container styles */
+        /* ===== AD SLOTS ===== */
         .ad-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            z-index: 1;
+            margin: 1.5rem 0;
             text-align: center;
         }
-
-        .ad-container .ad-label {
-            font-size: 0.65rem;
-            color: rgba(255, 255, 255, 0.25);
+        .ad-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin-bottom: 4px;
         }
-
         .ad-slot {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
             padding: 8px;
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
 
-        /* Footer */
-        .footer {
-            padding: 2rem 0;
-            opacity: 0.5;
+        /* ===== CONTENT SECTIONS ===== */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 50px; height: 3px;
+            background: var(--gradient-main);
+            border-radius: 3px;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: background 0.25s;
+        }
+        .content-card:hover { background: var(--bg-card-hover); }
+
+        .content-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+
+        .content-card p, .content-card ul {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+        .content-card ul {
+            padding-left: 1.5rem;
+        }
+        .content-card li {
+            margin-bottom: 0.4rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== ARTICLE SECTION ===== */
+        article {
+            max-width: 100%;
+        }
+        article h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            color: var(--text-primary);
+        }
+        article h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent);
+        }
+        article p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        article ul, article ol {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        article li { margin-bottom: 0.5rem; }
+
+        .highlight-box {
+            background: var(--accent-glow);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+        }
+        .highlight-box strong { color: var(--accent); }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: var(--bg-card-hover); }
+        .faq-question .icon { color: var(--accent); transition: transform 0.3s; font-size: 1.2rem; }
+        .faq-item.open .faq-question .icon { transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 1.5rem;
+            color: var(--text-secondary);
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding: 0 1.5rem 1.25rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 0;
+            margin-top: 2rem;
+        }
+        .footer-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .footer-section h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .footer-section a:hover { color: var(--accent); }
+        .footer-bottom {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem 0;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-muted);
             font-size: 0.8rem;
-            z-index: 1;
+        }
+
+        /* ===== PAGES (About, Privacy, Contact) overlay ===== */
+        .page-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        .page-overlay.active { display: flex; justify-content: center; align-items: flex-start; }
+        .page-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 100%;
+            margin-top: 2rem;
+            position: relative;
+        }
+        .page-content h2 { font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--text-primary); }
+        .page-content p, .page-content li { color: var(--text-secondary); margin-bottom: 0.75rem; }
+        .page-content ul { padding-left: 1.5rem; }
+        .page-close {
+            position: absolute;
+            top: 1rem; right: 1.5rem;
+            background: none; border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .page-close:hover { color: var(--accent); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .ball { width: 48px; height: 48px; font-size: 1.1rem; }
+            .lotto-container { gap: 8px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px; left: 0; right: 0;
+                background: rgba(10,10,20,0.95);
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-toggle { display: block; }
+            .info-grid { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 상단 광고 -->
-    <div class="ad-container" style="margin-top: 1rem; margin-bottom: 0.5rem;">
+<!-- ===== NAVIGATION ===== -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-logo" id="navLogo">LuckyLotto</a>
+        <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#generator">번호 생성</a></li>
+            <li><a href="#guide">전략 가이드</a></li>
+            <li><a href="#analysis">번호 분석</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a onclick="openPage('about')">소개</a></li>
+            <li><a onclick="openPage('contact')">문의</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="container">
+        <h1>LUCKY LOTTO</h1>
+        <p>과학적 확률 분석 기반의 로또 번호 생성기와 전략 가이드로 스마트한 로또를 즐겨보세요.</p>
+    </div>
+</section>
+
+<!-- ===== AD: 상단 ===== -->
+<div class="container">
+    <div class="ad-container">
         <div class="ad-label">광고</div>
         <div class="ad-slot">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-1104684007782325"
-                 data-ad-slot="auto"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1104684007782325" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
+</div>
 
-    <main>
-        <div class="header">
-            <h1>LUCKY LOTTO</h1>
-            <p>버튼을 눌러 오늘의 행운을 잡으세요</p>
+<!-- ===== GENERATOR ===== -->
+<section id="generator">
+    <div class="container">
+        <div class="generator-card">
+            <h2 style="text-align:center; margin-bottom:0.5rem; font-size:1.4rem;">🎱 오늘의 행운 번호</h2>
+            <p style="text-align:center; color:var(--text-secondary); font-size:0.9rem; margin-bottom:1rem;">버튼을 눌러 1~45 사이의 6개 번호를 랜덤 생성하세요</p>
+            <div class="lotto-container" id="lottoContainer">
+                <div class="ball" id="ball1">?</div>
+                <div class="ball" id="ball2">?</div>
+                <div class="ball" id="ball3">?</div>
+                <div class="ball" id="ball4">?</div>
+                <div class="ball" id="ball5">?</div>
+                <div class="ball" id="ball6">?</div>
+            </div>
+            <button class="generate-btn" id="generateBtn">번호 생성하기</button>
         </div>
 
-        <div class="lotto-container" id="lottoContainer">
-            <div class="ball" id="ball1">?</div>
-            <div class="ball" id="ball2">?</div>
-            <div class="ball" id="ball3">?</div>
-            <div class="ball" id="ball4">?</div>
-            <div class="ball" id="ball5">?</div>
-            <div class="ball" id="ball6">?</div>
+        <!-- 통계 카드 -->
+        <div class="info-grid">
+            <div class="stat-card">
+                <div class="stat-number">8,145,060</div>
+                <div class="stat-label">로또 1등 당첨 확률 (1/)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">45</div>
+                <div class="stat-label">선택 가능한 번호 범위</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">추출 번호 개수</div>
+            </div>
         </div>
+    </div>
+</section>
 
-        <button class="generate-btn" id="generateBtn">번호 생성하기</button>
-    </main>
+<!-- ===== GUIDE ARTICLE ===== -->
+<section id="guide">
+    <div class="container">
+        <h2 class="section-title">📖 로또 전략 가이드</h2>
 
-    <!-- 하단 광고 -->
-    <div class="ad-container" style="margin-top: 0.5rem; margin-bottom: 1rem;">
+        <article>
+            <div class="content-card">
+                <h3>로또 6/45란 무엇인가요?</h3>
+                <p>대한민국 로또 6/45는 1부터 45까지의 숫자 중 6개를 선택하여 추첨 번호와 일치하는 개수에 따라 등수가 결정되는 복권입니다. 매주 토요일 저녁 8시 45분에 MBC 스튜디오에서 생방송으로 추첨이 진행됩니다.</p>
+                <p>2002년 12월 첫 추첨을 시작으로 20년 이상 운영되어온 대한민국 대표 복권으로, 1장당 1,000원에 구매할 수 있습니다. 한 게임당 자동, 수동, 반자동 중 선택이 가능하며, 판매점이나 온라인(동행복권 사이트)을 통해 구매할 수 있습니다.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>당첨 등수별 조건</h3>
+                <ul>
+                    <li><strong>1등:</strong> 6개 번호 모두 일치 — 확률 약 1/8,145,060</li>
+                    <li><strong>2등:</strong> 5개 번호 + 보너스 번호 일치 — 확률 약 1/1,357,510</li>
+                    <li><strong>3등:</strong> 5개 번호 일치 — 확률 약 1/35,724</li>
+                    <li><strong>4등:</strong> 4개 번호 일치 — 확률 약 1/733</li>
+                    <li><strong>5등:</strong> 3개 번호 일치 — 확률 약 1/45 (고정 당첨금 5,000원)</li>
+                </ul>
+            </div>
+
+            <h2>스마트한 로또 번호 선택 전략</h2>
+
+            <div class="content-card">
+                <h3>1. 번호 대역 균형 전략</h3>
+                <p>로또 번호는 1~10(노랑), 11~20(파랑), 21~30(빨강), 31~40(회색), 41~45(초록) 총 5개 구간으로 나뉩니다. 역대 당첨 번호를 분석해보면, 한 구간에서만 번호가 몰리는 경우는 매우 드뭅니다.</p>
+                <p>가능한 한 각 구간에서 골고루 1~2개씩 선택하는 것이 통계적으로 유리합니다. 예를 들어 "3, 15, 22, 28, 37, 44"처럼 전 구간에 분포된 번호 조합이 실제 당첨 번호와 유사한 패턴을 보입니다.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>2. 홀짝 비율 전략</h3>
+                <p>당첨 번호 6개 중 홀수와 짝수의 비율을 살펴보면, 3:3 또는 4:2 비율이 가장 빈번하게 나타납니다. 모두 홀수(6:0)이거나 모두 짝수(0:6)인 경우는 극히 드뭅니다.</p>
+                <p>번호를 선택할 때 홀수 3개, 짝수 3개를 기본 비율로 설정하면 보다 합리적인 번호 조합을 만들 수 있습니다.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>3. 합산 범위 전략</h3>
+                <p>역대 당첨 번호 6개의 합을 분석하면, 대부분 100~175 사이에 분포합니다. 이 범위를 벗어나는 당첨 조합은 매우 드물기 때문에, 선택한 6개 번호의 합이 이 범위 안에 들어오는지 확인하는 것도 좋은 전략입니다.</p>
+            </div>
+
+            <div class="highlight-box">
+                <strong>💡 중요 알림:</strong> 로또는 완전한 확률 게임입니다. 어떤 전략도 당첨을 보장할 수 없으며, 위의 분석은 역대 통계를 기반으로 한 참고 자료입니다. 과도한 복권 구매는 삼가시고, 여가와 재미의 일환으로 즐기시기 바랍니다.
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- ===== AD: 중간 ===== -->
+<div class="container">
+    <div class="ad-container">
         <div class="ad-label">광고</div>
         <div class="ad-slot">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-1104684007782325"
-                 data-ad-slot="auto"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1104684007782325" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
+</div>
 
-    <div class="footer">
-        © 2026 Antigravity Lucky Lotto
+<!-- ===== ANALYSIS ===== -->
+<section id="analysis">
+    <div class="container">
+        <h2 class="section-title">📊 번호 분석 가이드</h2>
+
+        <article>
+            <div class="content-card">
+                <h3>번호별 색상 구간 안내</h3>
+                <p>로또 번호는 공식적으로 5가지 색상 구간으로 나뉩니다. 각 구간을 이해하면 번호 선택 시 시각적으로도 균형 잡힌 조합을 만들 수 있습니다.</p>
+                <ul>
+                    <li>🟡 <strong>1번~10번 (노랑)</strong>: 낮은 번호 구간으로, 통계적으로 가장 자주 당첨되는 구간 중 하나입니다.</li>
+                    <li>🔵 <strong>11번~20번 (파랑)</strong>: 중저 구간으로, 당첨 번호에 가장 고르게 분포하는 구간입니다.</li>
+                    <li>🔴 <strong>21번~30번 (빨강)</strong>: 중간 구간으로, 많은 당첨 조합에서 1~2개가 포함됩니다.</li>
+                    <li>⚫ <strong>31번~40번 (회색)</strong>: 중고 구간으로, 높은 번호대에서의 선택 폭을 넓혀줍니다.</li>
+                    <li>🟢 <strong>41번~45번 (초록)</strong>: 높은 번호 구간으로, 5개 번호만 존재하여 출현 빈도가 상대적으로 적습니다.</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>연속 번호와 이웃 번호</h3>
+                <p>연속된 번호(예: 5, 6 또는 23, 24, 25)는 실제 당첨에서도 자주 등장합니다. 역대 데이터를 분석하면 약 60% 이상의 당첨 회차에서 최소 1쌍의 연속 번호가 포함되어 있었습니다.</p>
+                <p>따라서 번호 조합에 1~2쌍의 연속 번호를 포함하는 것도 자연스러운 전략입니다. 다만, 3개 이상 연속되는 번호 조합은 빈도가 급격히 줄어들므로 주의가 필요합니다.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>이전 당첨 번호 패턴 활용법</h3>
+                <p>최근 5~10회차의 당첨 번호를 참고하여 자주 나온 번호(핫 넘버)와 오랫동안 나오지 않은 번호(콜드 넘버)를 파악할 수 있습니다. 핫 넘버와 콜드 넘버를 적절히 조합하면 보다 다양한 시나리오에 대비할 수 있습니다.</p>
+                <p>동행복권 공식 사이트에서는 역대 모든 회차의 당첨 번호와 통계 데이터를 제공하고 있으니, 이를 적극 활용해 보세요.</p>
+            </div>
+        </article>
     </div>
+</section>
 
-    <script>
-        const generateBtn = document.getElementById('generateBtn');
-        const balls = [
-            document.getElementById('ball1'),
-            document.getElementById('ball2'),
-            document.getElementById('ball3'),
-            document.getElementById('ball4'),
-            document.getElementById('ball5'),
-            document.getElementById('ball6')
-        ];
+<!-- ===== FAQ ===== -->
+<section id="faq">
+    <div class="container">
+        <h2 class="section-title">❓ 자주 묻는 질문</h2>
 
-        function getBallColorClass(num) {
-            if (num <= 10) return 'color-1'; // 노랑
-            if (num <= 20) return 'color-2'; // 파랑
-            if (num <= 30) return 'color-3'; // 빨강
-            if (num <= 40) return 'color-4'; // 회색
-            return 'color-5'; // 초록
-        }
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>로또 번호 생성기는 어떤 원리로 작동하나요?</span>
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>본 사이트의 로또 번호 생성기는 JavaScript의 Math.random() 함수를 활용하여 1부터 45까지의 숫자 중 중복 없이 6개의 번호를 무작위로 추출합니다. 매번 버튼을 누를 때마다 완전히 새로운 조합이 생성되며, 이전 결과와 무관하게 독립적으로 작동합니다.</p>
+            </div>
+        </div>
 
-        function generateNumbers() {
-            // Disable button during animation
-            generateBtn.disabled = true;
-            generateBtn.style.opacity = '0.5';
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>이 사이트에서 생성한 번호로 당첨이 보장되나요?</span>
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>아닙니다. 로또는 완전한 확률 게임이며, 어떤 번호 생성기나 전략도 당첨을 보장할 수 없습니다. 본 사이트는 재미를 위한 랜덤 번호 생성 도구이며, 전략 가이드는 통계 데이터를 기반으로 한 참고 자료입니다. 복권은 여가의 일환으로 적정 금액 내에서 즐기시기 바랍니다.</p>
+            </div>
+        </div>
 
-            // Reset balls
-            balls.forEach(ball => {
-                ball.classList.remove('active', 'color-1', 'color-2', 'color-3', 'color-4', 'color-5');
-                ball.textContent = '?';
-            });
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>로또 당첨금에 세금은 얼마나 부과되나요?</span>
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>로또 당첨금은 금액에 따라 세율이 다릅니다. 5만 원 이하(5등)는 비과세이며, 200만 원 이하 당첨금에는 22%(소득세 20% + 주민세 2%)가 부과됩니다. 200만 원 초과(3억 원 이하)는 22%, 3억 원 초과분에는 33%(소득세 30% + 주민세 3%)의 세율이 적용됩니다. 당첨금은 세금이 원천징수된 후 지급됩니다.</p>
+            </div>
+        </div>
 
-            // Lotto logic: 1 to 45, 6 unique numbers
-            const numbers = [];
-            while (numbers.length < 6) {
-                const random = Math.floor(Math.random() * 45) + 1;
-                if (!numbers.includes(random)) {
-                    numbers.push(random);
-                }
-            }
-            
-            // Sort numbers for better presentation
-            numbers.sort((a,b) => a - b);
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>로또는 어디서 구매할 수 있나요?</span>
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>로또는 전국 복권 판매점에서 직접 구매하거나, 동행복권 공식 웹사이트(www.dhlottery.co.kr)에서 온라인으로 구매할 수 있습니다. 온라인 구매의 경우 회원 가입 후 예치금을 충전하면 매주 토요일 오후 8시까지 구매 가능합니다. 1회 최대 5게임까지 구매할 수 있으며, 1인당 주간 구매 한도는 10만 원입니다.</p>
+            </div>
+        </div>
 
-            // Animate balls appearing one by one
-            numbers.forEach((num, index) => {
-                setTimeout(() => {
-                    balls[index].textContent = num;
-                    balls[index].classList.add('active');
-                    balls[index].classList.add(getBallColorClass(num));
-                    
-                    // Re-enable button after last ball
-                    if (index === 5) {
-                        setTimeout(() => {
-                            generateBtn.disabled = false;
-                            generateBtn.style.opacity = '1';
-                        }, 500);
-                    }
-                }, index * 200);
-            });
-        }
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>사이트 이용에 비용이 발생하나요?</span>
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>아닙니다. LuckyLotto의 모든 기능은 완전히 무료입니다. 번호 생성, 전략 가이드, 번호 분석 정보 등 사이트의 모든 콘텐츠를 무료로 이용하실 수 있습니다. 회원 가입이나 별도의 앱 설치도 필요하지 않습니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-        generateBtn.addEventListener('click', generateNumbers);
+<!-- ===== AD: 하단 ===== -->
+<div class="container">
+    <div class="ad-container">
+        <div class="ad-label">광고</div>
+        <div class="ad-slot">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1104684007782325" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+</div>
 
-        // Initial animation
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                balls.forEach((ball, index) => {
-                    setTimeout(() => {
-                        ball.classList.add('active');
-                    }, index * 100);
-                });
-            }, 500);
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-section">
+            <h4>사이트 메뉴</h4>
+            <a href="#generator">번호 생성기</a>
+            <a href="#guide">전략 가이드</a>
+            <a href="#analysis">번호 분석</a>
+            <a href="#faq">자주 묻는 질문</a>
+        </div>
+        <div class="footer-section">
+            <h4>정보</h4>
+            <a onclick="openPage('about')">사이트 소개</a>
+            <a onclick="openPage('privacy')">개인정보처리방침</a>
+            <a onclick="openPage('contact')">문의하기</a>
+        </div>
+        <div class="footer-section">
+            <h4>면책 조항</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); max-width:300px;">본 사이트는 로또 번호를 무작위로 생성하는 도구이며, 어떠한 당첨도 보장하지 않습니다. 복권은 적정 금액 내에서 즐기시기 바랍니다.</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 LuckyLotto. All rights reserved. | 본 사이트는 동행복권과 무관한 독립 사이트입니다.
+    </div>
+</footer>
+
+<!-- ===== PAGE OVERLAYS ===== -->
+<!-- 소개 페이지 -->
+<div class="page-overlay" id="page-about">
+    <div class="page-content">
+        <button class="page-close" onclick="closePage('about')">&times;</button>
+        <h2>📌 사이트 소개</h2>
+        <p><strong>LuckyLotto</strong>는 로또 번호를 무작위로 생성해주는 무료 온라인 도구입니다. 2026년에 개설되었으며, 사용자에게 재미있고 유용한 로또 관련 정보를 제공하는 것을 목표로 합니다.</p>
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">우리의 목표</h3>
+        <ul>
+            <li>직관적이고 아름다운 인터페이스로 누구나 쉽게 로또 번호를 생성할 수 있도록 합니다.</li>
+            <li>통계 기반의 전략 가이드로 로또에 대한 올바른 이해를 돕습니다.</li>
+            <li>로또는 확률 게임임을 분명히 안내하며, 건전한 복권 문화를 지지합니다.</li>
+        </ul>
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">운영 정보</h3>
+        <p>본 사이트는 개인이 운영하는 독립 웹사이트이며, 동행복권 또는 기타 복권 발행 기관과 어떠한 관계도 없습니다. 사이트에 게시된 모든 콘텐츠는 독자적으로 작성된 것이며, 정보의 정확성을 위해 지속적으로 업데이트됩니다.</p>
+    </div>
+</div>
+
+<!-- 개인정보처리방침 -->
+<div class="page-overlay" id="page-privacy">
+    <div class="page-content">
+        <button class="page-close" onclick="closePage('privacy')">&times;</button>
+        <h2>🔒 개인정보처리방침</h2>
+        <p><strong>시행일: 2026년 3월 17일</strong></p>
+        <p>LuckyLotto(이하 "사이트")는 이용자의 개인정보를 중요시하며, 「개인정보보호법」에 따라 아래와 같이 개인정보처리방침을 수립하여 공개합니다.</p>
+
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">1. 수집하는 개인정보</h3>
+        <p>본 사이트는 별도의 회원가입 절차가 없으며, 이용자의 개인정보를 직접 수집하지 않습니다.</p>
+
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">2. 제3자 서비스</h3>
+        <p>본 사이트는 Google AdSense를 통해 광고를 게재하고 있으며, 이 과정에서 Google이 쿠키를 사용하여 이용자의 인터넷 사용 이력을 기반으로 관련 광고를 표시할 수 있습니다. 이용자는 Google 광고 설정 페이지에서 맞춤 광고를 비활성화할 수 있습니다.</p>
+
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">3. 쿠키(Cookie) 사용</h3>
+        <p>본 사이트는 분석 및 광고 목적으로 쿠키를 사용할 수 있습니다. 이용자는 브라우저 설정을 통해 쿠키의 수집을 거부할 수 있으나, 이 경우 일부 서비스 이용이 제한될 수 있습니다.</p>
+
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">4. 개인정보의 보호</h3>
+        <p>본 사이트는 이용자의 개인정보 보호를 위해 기술적, 관리적 보호 조치를 시행하고 있으며, 관련 법규를 준수합니다.</p>
+
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">5. 문의</h3>
+        <p>개인정보 관련 문의사항은 아래 이메일로 연락해 주시기 바랍니다.<br>📧 <strong>contact@luckylotto.site</strong></p>
+    </div>
+</div>
+
+<!-- 문의 페이지 -->
+<div class="page-overlay" id="page-contact">
+    <div class="page-content">
+        <button class="page-close" onclick="closePage('contact')">&times;</button>
+        <h2>✉️ 문의하기</h2>
+        <p>사이트 이용 중 궁금한 점이나 건의사항이 있으시면 아래 방법으로 연락해 주세요. 빠른 시일 내에 답변드리겠습니다.</p>
+
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">이메일 문의</h3>
+        <p>📧 <strong>contact@luckylotto.site</strong></p>
+        <p>일반적으로 영업일 기준 1~2일 내에 답변드립니다.</p>
+
+        <h3 style="color:var(--accent); margin: 1rem 0 0.5rem;">문의 가능 분야</h3>
+        <ul>
+            <li>사이트 이용 관련 질문</li>
+            <li>버그 및 오류 신고</li>
+            <li>기능 개선 제안</li>
+            <li>광고 및 제휴 문의</li>
+            <li>기타 문의사항</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // ===== Navigation Toggle =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Close nav on link click (mobile)
+    navLinks.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ===== Lotto Generator =====
+    const generateBtn = document.getElementById('generateBtn');
+    const balls = Array.from({length: 6}, (_, i) => document.getElementById(`ball${i+1}`));
+
+    function getBallColorClass(num) {
+        if (num <= 10) return 'color-1';
+        if (num <= 20) return 'color-2';
+        if (num <= 30) return 'color-3';
+        if (num <= 40) return 'color-4';
+        return 'color-5';
+    }
+
+    function generateNumbers() {
+        generateBtn.disabled = true;
+        generateBtn.style.opacity = '0.5';
+
+        balls.forEach(ball => {
+            ball.classList.remove('active', 'color-1', 'color-2', 'color-3', 'color-4', 'color-5');
+            ball.textContent = '?';
         });
-    </script>
+
+        const numbers = [];
+        while (numbers.length < 6) {
+            const r = Math.floor(Math.random() * 45) + 1;
+            if (!numbers.includes(r)) numbers.push(r);
+        }
+        numbers.sort((a, b) => a - b);
+
+        numbers.forEach((num, i) => {
+            setTimeout(() => {
+                balls[i].textContent = num;
+                balls[i].classList.add('active', getBallColorClass(num));
+                if (i === 5) {
+                    setTimeout(() => {
+                        generateBtn.disabled = false;
+                        generateBtn.style.opacity = '1';
+                    }, 400);
+                }
+            }, i * 180);
+        });
+    }
+
+    generateBtn.addEventListener('click', generateNumbers);
+
+    // Initial ball animation
+    window.addEventListener('load', () => {
+        balls.forEach((ball, i) => setTimeout(() => ball.classList.add('active'), 300 + i * 100));
+    });
+
+    // ===== FAQ Toggle =====
+    function toggleFaq(el) {
+        el.parentElement.classList.toggle('open');
+    }
+
+    // ===== Page Overlays =====
+    function openPage(name) {
+        document.getElementById(`page-${name}`).classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closePage(name) {
+        document.getElementById(`page-${name}`).classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Close overlay on backdrop click
+    document.querySelectorAll('.page-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+</script>
 </body>
 </html>
