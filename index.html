@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Lotto - 행운의 번호 추천</title>
+    <meta name="description" content="매일매일 당신의 행운을 점쳐보세요. 프리미엄 로또 번호 생성기.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-glow: conic-gradient(
+                from 180deg at 50% 50%,
+                #16abff33 0deg,
+                #0885ff33 55deg,
+                #54d6ff33 120deg,
+                #0071ff33 160deg,
+                transparent 360deg
+            );
+            --secondary-glow: radial-gradient(
+                rgba(255, 255, 255, 1),
+                rgba(255, 255, 255, 0)
+            );
+            --tile-start-rgb: 239, 245, 249;
+            --tile-end-rgb: 228, 232, 233;
+            --tile-border: conic-gradient(
+                #00000080,
+                #00000040,
+                #00000030,
+                #00000020,
+                #00000010,
+                #00000010,
+                #00000080
+            );
+
+            --foreground-rgb: 255, 255, 255;
+            --background-start-rgb: 10, 10, 20;
+            --background-end-rgb: 0, 0, 0;
+            
+            --ball-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            color: rgb(var(--foreground-rgb));
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgb(var(--background-end-rgb))
+            ) rgb(var(--background-start-rgb));
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Ambient background effects */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        body::before {
+            background: var(--primary-glow);
+            border-radius: 50%;
+            width: 50vw;
+            height: 50vw;
+            top: -10%;
+            left: -10%;
+            filter: blur(90px);
+            animation: pulse 15s infinite alternate;
+        }
+
+        body::after {
+            background: var(--secondary-glow);
+            border-radius: 50%;
+            width: 30vw;
+            height: 30vw;
+            bottom: -5%;
+            right: -5%;
+            filter: blur(70px);
+            animation: pulse 10s infinite alternate-reverse;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.2) translate(10%, 10%); }
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            z-index: 1;
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #54d6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .lotto-container {
+            display: flex;
+            gap: 12px;
+            perspective: 1000px;
+            min-height: 100px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .ball {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: var(--ball-shadow);
+            transform: scale(0) rotateY(180deg);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ball.active {
+            transform: scale(1) rotateY(0deg);
+        }
+
+        .ball::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%);
+        }
+
+        /* Color classes for balls */
+        .color-1 { background: linear-gradient(135deg, #fbc531, #e1b12c); border-color: #fbc531; color: #000; }
+        .color-2 { background: linear-gradient(135deg, #487eb0, #40739e); border-color: #487eb0; }
+        .color-3 { background: linear-gradient(135deg, #e84118, #c23616); border-color: #e84118; }
+        .color-4 { background: linear-gradient(135deg, #7f8c8d, #718093); border-color: #7f8c8d; }
+        .color-5 { background: linear-gradient(135deg, #44bd32, #4cd137); border-color: #44bd32; }
+
+        .generate-btn {
+            padding: 18px 48px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+            background: #54d6ff;
+            color: #fff;
+        }
+
+        .generate-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .ball { width: 50px; height: 50px; font-size: 1.2rem; }
+            .lotto-container { gap: 8px; }
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 2rem;
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div class="header">
+            <h1>LUCKY LOTTO</h1>
+            <p>버튼을 눌러 오늘의 행운을 잡으세요</p>
+        </div>
+
+        <div class="lotto-container" id="lottoContainer">
+            <div class="ball" id="ball1">?</div>
+            <div class="ball" id="ball2">?</div>
+            <div class="ball" id="ball3">?</div>
+            <div class="ball" id="ball4">?</div>
+            <div class="ball" id="ball5">?</div>
+            <div class="ball" id="ball6">?</div>
+        </div>
+
+        <button class="generate-btn" id="generateBtn">번호 생성하기</button>
+    </main>
+
+    <div class="footer">
+        © 2026 Antigravity Lucky Lotto
+    </div>
+
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const balls = [
+            document.getElementById('ball1'),
+            document.getElementById('ball2'),
+            document.getElementById('ball3'),
+            document.getElementById('ball4'),
+            document.getElementById('ball5'),
+            document.getElementById('ball6')
+        ];
+
+        function getBallColorClass(num) {
+            if (num <= 10) return 'color-1'; // 노랑
+            if (num <= 20) return 'color-2'; // 파랑
+            if (num <= 30) return 'color-3'; // 빨강
+            if (num <= 40) return 'color-4'; // 회색
+            return 'color-5'; // 초록
+        }
+
+        function generateNumbers() {
+            // Disable button during animation
+            generateBtn.disabled = true;
+            generateBtn.style.opacity = '0.5';
+
+            // Reset balls
+            balls.forEach(ball => {
+                ball.classList.remove('active', 'color-1', 'color-2', 'color-3', 'color-4', 'color-5');
+                ball.textContent = '?';
+            });
+
+            // Lotto logic: 1 to 45, 6 unique numbers
+            const numbers = [];
+            while (numbers.length < 6) {
+                const random = Math.floor(Math.random() * 45) + 1;
+                if (!numbers.includes(random)) {
+                    numbers.push(random);
+                }
+            }
+            
+            // Sort numbers for better presentation
+            numbers.sort((a,b) => a - b);
+
+            // Animate balls appearing one by one
+            numbers.forEach((num, index) => {
+                setTimeout(() => {
+                    balls[index].textContent = num;
+                    balls[index].classList.add('active');
+                    balls[index].classList.add(getBallColorClass(num));
+                    
+                    // Re-enable button after last ball
+                    if (index === 5) {
+                        setTimeout(() => {
+                            generateBtn.disabled = false;
+                            generateBtn.style.opacity = '1';
+                        }, 500);
+                    }
+                }, index * 200);
+            });
+        }
+
+        generateBtn.addEventListener('click', generateNumbers);
+
+        // Initial animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                balls.forEach((ball, index) => {
+                    setTimeout(() => {
+                        ball.classList.add('active');
+                    }, index * 100);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
